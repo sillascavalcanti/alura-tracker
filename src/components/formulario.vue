@@ -14,7 +14,7 @@
                     </span>
                     <span>play</span>
                 </button>
-                <button class="button">
+                <button class="button" @click="parar">
                     <span class="icon">
                         <i class="fas fa-stop"></i>
                     </span>
@@ -31,7 +31,10 @@ import { defineComponent } from 'vue'
 export default defineComponent({
     name: 'MyFormulario',
     data (){
-        return{tempoEmSegundos:0}
+        return{
+            tempoEmSegundos:0,
+            cronometro:0
+            }
     },
     computed:{
         tempoDecorrido(): string{
@@ -40,9 +43,12 @@ export default defineComponent({
     },
     methods:{
         iniciar (){
-            setInterval(() =>{
+            this.cronometro = setInterval(() =>{
                 this.tempoEmSegundos +=1
             }, 1000)
+        },
+        parar (){
+            clearInterval(this.cronometro)
         }
     }
 })
