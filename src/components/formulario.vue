@@ -2,53 +2,31 @@
     <div class="box">
         <div class="columns">
             <div class="column is-8" role="form" aria-label="Formulario para criação de um novo objeto">
-                <input type="text" class="input" placeholder="Qual tarefa você iniciar?">
+                <input type="text" class="input" placeholder="Qual tarefa você iniciar?" v-model="tarefas">
             </div>
-            <div class="column is-2 is-justify-content-space-between is-align-items-center is-flex">
-                <section>
-                    <strong>{{tempoDecorrido}}</strong>
-                </section>
-                <button class="button" @click="iniciar">
-                    <span class="icon">
-                        <i class="fas fa-play"></i>
-                    </span>
-                    <span>play</span>
-                </button>
-                <button class="button" @click="parar">
-                    <span class="icon">
-                        <i class="fas fa-stop"></i>
-                    </span>
-                    <span>stop</span>
-                </button>
-            </div>
+            <Temporizador @ao-parar-contador="finalizarContador"/>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import Temporizador from './temporizador.vue'
+
 
 export default defineComponent({
-    name: 'MyFormulario',
-    data (){
-        return{
-            tempoEmSegundos:0,
-            cronometro:0
-            }
-    },
-    computed:{
-        tempoDecorrido(): string{
-            return new Date(this.tempoEmSegundos * 1000).toISOString().substring(11,19)
+    name: "MyFormulario",
+    components: { Temporizador },
+    methods:{
+        finalizarContador(tempoDecorrido:number) :void{
+            console.log('o tempo foi',tempoDecorrido)
+            console.log('a tarfa foi',this.tarefas)
+            this.tarefas=''
         }
     },
-    methods:{
-        iniciar (){
-            this.cronometro = setInterval(() =>{
-                this.tempoEmSegundos +=1
-            }, 1000)
-        },
-        parar (){
-            clearInterval(this.cronometro)
+    data(){
+        return{
+            tarefas:''
         }
     }
 })
