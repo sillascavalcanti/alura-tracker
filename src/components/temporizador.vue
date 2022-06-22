@@ -1,24 +1,15 @@
 <template>
 <div class="column is-2 is-justify-content-space-between is-align-items-center is-flex">
     <Cronometro :tempo-em-segundos="tempoEmSegundos"/>
-    <button class="button" @click="iniciar" :disabled="cronometroRodando">
-        <span class="icon">
-            <i class="fas fa-play"></i>
-        </span>
-        <span>play</span>
-    </button>
-    <button class="button" @click="parar" :disabled="!cronometroRodando">
-        <span class="icon">
-            <i class="fas fa-stop"></i>
-        </span>
-        <span>stop</span>
-    </button>
+    <Botao titulo="play" icon="fa-play" :desabilitado="cronometroRodando"  v-on:ao-click="iniciar"></Botao>
+    <Botao titulo="stop" icon="fa-stop" :desabilitado="!cronometroRodando" v-on:ao-click="parar"></Botao>
 </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Cronometro from './cronometro.vue'
+import Botao from './botao.vue'
 
 export default defineComponent({
     name: 'MyCronometro',
@@ -44,7 +35,7 @@ export default defineComponent({
             this.tempoEmSegundos=0
         }
     },
-    components: { Cronometro }
+    components: { Cronometro, Botao }
 })
 </script>
 
